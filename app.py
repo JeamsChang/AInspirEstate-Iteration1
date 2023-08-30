@@ -17,7 +17,7 @@ DATABASE_CONFIG = {
 @app.route('/', methods=['GET'])
 def index():
    print('Request for index page received')
-   return render_template('index.html')
+   return render_template('homepage.html')
 
 @app.route('/favicon.ico')
 def favicon():

@@ -1,5 +1,6 @@
 import os
 import mysql.connector
+from flask_sqlalchemy import SQLAlchemy
 from flask import (Flask, redirect, render_template, request,
                    send_from_directory, url_for)
 
@@ -13,27 +14,31 @@ DATABASE_CONFIG = {
     'database': 'housing'
 }
 
+# MySQL connection string
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqlconnector://ainspireestate:seamTA07@seam-server.mysql.database.azure.com:3306/housing"
+db = SQLAlchemy(app)
+
+# SQLAlchemy ORM definition for Melbourne Housing Data
+class MelbourneHousingData(db.Model):
+    __tablename__ = "melbourne_housing_data"
+    id = db.Column(db.Integer, primary_key=True)
+    suburb = db.Column(db.String)
 
 @app.route('/', methods=['GET'])
 def index():
    print('Request for index page received')
-   return render_template('homepage.html')
+   return render_template('index.html')
 
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
-@app.route('/hello', methods=['POST'])
-def hello():
-   name = request.form.get('name')
-
-   if name:
-       print('Request for hello page received with name=%s' % name)
-       return render_template('hello.html', name = name)
-   else:
-       print('Request for hello page received with no name or blank name -- redirecting')
-       return redirect(url_for('index'))
+@app.route('/browsing')
+def browsing():
+   suburbs = suburbs = db.session.query(MelbourneHousingData.suburb).distinct().order_by(MelbourneHousingData.suburb).all()
+   print(suburbs)
+   return render_template('browsing.html', suburbs=suburbs)
 
 @app.route('/test')
 def test():

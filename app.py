@@ -23,6 +23,9 @@ class MelbourneHousingData(db.Model):
     __tablename__ = "melbourne_housing_data"
     id = db.Column(db.Integer, primary_key=True)
     suburb = db.Column(db.String)
+    rooms = db.Column(db.Integer)
+    bathroom = db.Column(db.Integer)
+    price = db.Column(db.Double)
 
 @app.route('/', methods=['GET'])
 def index():
@@ -36,9 +39,19 @@ def favicon():
 
 @app.route('/browsing')
 def browsing():
+   # Get all suburbs from database
    suburbs = suburbs = db.session.query(MelbourneHousingData.suburb).distinct().order_by(MelbourneHousingData.suburb).all()
    print(suburbs)
-   return render_template('browsing.html', suburbs=suburbs)
+   # Get max number of rooms from database
+   max_rooms = db.session.query(db.func.max(MelbourneHousingData.rooms)).scalar()
+   print(max_rooms)
+   # Get max number of bathrooms from database
+   max_bathroom = db.session.query(db.func.max(MelbourneHousingData.bathroom)).scalar()
+   # Get max price of properties from database
+   max_price = db.session.query(db.func.max(MelbourneHousingData.price)).scalar()
+   # Get min price of properties from database
+   min_price = db.session.query(db.func.min(MelbourneHousingData.price)).scalar()
+   return render_template('browsing.html', suburbs=suburbs, max_rooms=max_rooms, max_price=max_price, max_bathroom=max_bathroom, min_price=min_price)
 
 @app.route('/test')
 def test():

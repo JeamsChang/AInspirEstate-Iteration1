@@ -35,7 +35,7 @@
   <header class="u-clearfix u-header u-header" id="sec-6772">
     <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
       <a href="https://nicepage.com" class="u-image u-logo u-image-1" data-image-width="80" data-image-height="40">
-        <img src="images/default-logo.png" class="u-logo-image u-logo-image-1">
+        <img src="static/images/default-logo.png" class="u-logo-image u-logo-image-1">
       </a>
       <nav class="u-menu u-menu-one-level u-offcanvas u-menu-1">
         <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px; font-weight: 700; text-transform: uppercase;">
@@ -89,7 +89,8 @@
       </nav>
     </div>
   </header>
-    
+  
+  <!-- User query for ideal property -->
   <section class="u-align-center u-clearfix u-container-align-center-md u-container-align-center-sm u-container-align-center-xs u-container-align-left-lg u-container-align-left-xl u-image u-section-1" id="carousel_94ec" data-image-width="2250" data-image-height="1500">
     <div class="u-clearfix u-sheet u-sheet-1">
       <h1 class="u-align-center-md u-align-center-sm u-align-center-xs u-align-left-lg u-align-left-xl u-text u-text-default u-text-1">
@@ -98,9 +99,11 @@
       <div class="u-align-left u-form u-white u-form-1">
         <form action="https://forms.nicepagesrv.com/v2/form/process" class="u-clearfix u-form-spacing-15 u-form-vertical u-inner-form" source="email" name="form" style="padding: 23px;">
           <h5 class="u-align-left u-form-group u-form-text u-label-top u-text u-text-2"> 
-            Get started with a free quotation
+            Start your real estate discovery journey
             <span style="text-decoration: underline !important;"></span>
           </h5>
+
+          <!-- Suburb -->
           <div class="u-form-group u-form-select u-label-top u-form-group-2">
             <label for="select-f4db" class="u-label u-label-1">
               Suburb
@@ -116,71 +119,78 @@
               <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve"><polygon class="st0" points="8,12 2,4 14,4 "></polygon></svg>
             </div>
           </div>
-            <div class="u-form-group u-form-number u-form-number-layout-range-number u-label-top u-form-group-3">
+
+          <!-- Number of bedroom -->
+          <div class="u-form-group u-form-number u-form-number-layout-range-number u-label-top u-form-group-3">
               <label for="range-f4bf" class="u-label u-label-2">Number of Bedroom</label>
               <div class="u-input-row" data-value="0">
-                <input value="0" min="0" max="100" step="1" type="range" placeholder="" id="range-f4bf" name="range" class="u-input u-range">
-                <input type="number" placeholder="" id="number-range-f4bf" class="u-border-none u-grey-5 u-input u-input-rectangle" min="0" max="100" step="1" value="0">
+                <input value="1" min="1" max="{{ max_rooms }}" step="1" type="range" placeholder="" id="range-f4bf" name="range" class="u-input u-range">
+                <input type="number" placeholder="" id="number-range-f4bf" class="u-border-none u-grey-5 u-input u-input-rectangle" min="1" max="{{ max_rooms }}" step="1" value="1">
               </div>
+          </div>
+
+          <!-- Number of bathroom -->
+          <div class="u-form-group u-form-number u-form-number-layout-range-number u-label-top u-form-group-4">
+            <label for="range-5c88" class="u-label u-label-3">Number of bathroom</label>
+            <div class="u-input-row" data-value="0">
+              <input value="1" min="1" max="{{ max_bathroom }}" step="1" type="range" placeholder="" id="range-5c88" name="range-1" class="u-input u-range">
+              <input type="number" placeholder="" id="number-range-5c88" class="u-border-none u-grey-5 u-input u-input-rectangle" min="1" max="{{ max_bathroom }}" step="1" value="1">
             </div>
-            <div class="u-form-group u-form-number u-form-number-layout-range-number u-label-top u-form-group-4">
-              <label for="range-5c88" class="u-label u-label-3">Number of bathroom</label>
-              <div class="u-input-row" data-value="0">
-                <input value="0" min="0" max="100" step="1" type="range" placeholder="" id="range-5c88" name="range-1" class="u-input u-range">
-                <input type="number" placeholder="" id="number-range-5c88" class="u-border-none u-grey-5 u-input u-input-rectangle" min="0" max="100" step="1" value="0">
-              </div>
+          </div>
+
+          <!-- Highest price -->
+          <div class="u-form-group u-form-number u-form-number-layout-range-number u-label-top u-form-group-5">
+            <label for="range-6ba9" class="u-label u-label-4">highest price</label>
+            <div class="u-input-row" data-value="0">
+              <input value="{{ min_price }}" min="{{ min_price }}" max="{{ max_price }}" step="10000" type="range" placeholder="" id="range-6ba9" name="range-2" class="u-input u-range">
+              <input type="number" placeholder="" id="number-range-6ba9" class="u-border-none u-grey-5 u-input u-input-rectangle" min="{{ min_price }}" max="{{ max_price }}" step="10000" value="{{ min_price }}">
             </div>
-            <div class="u-form-group u-form-number u-form-number-layout-range-number u-label-top u-form-group-5">
-              <label for="range-6ba9" class="u-label u-label-4">highest price</label>
-              <div class="u-input-row" data-value="0">
-                <input value="0" min="0" max="100" step="1" type="range" placeholder="" id="range-6ba9" name="range-2" class="u-input u-range">
-                <input type="number" placeholder="" id="number-range-6ba9" class="u-border-none u-grey-5 u-input u-input-rectangle" min="0" max="100" step="1" value="0">
-              </div>
-            </div>
-            <div class="u-align-right u-form-group u-form-submit u-label-top">
-              <input type="submit" value="submit" class="u-form-control-hidden">
-              <a href="#" class="u-active-palette-3-base u-border-active-palette-3-base u-border-hover-palette-3-base u-border-none u-btn u-btn-submit u-button-style u-hover-palette-3-base u-palette-2-base u-btn-1">Submit your request</a>
-            </div>
-            <div class="u-form-send-message u-form-send-success"> Thank you! Your message has been sent. </div>
-            <div class="u-form-send-error u-form-send-message"> Unable to send your message. Please fix errors then try again. </div>
-            <input type="hidden" value="" name="recaptchaResponse">
-            <input type="hidden" name="formServices" value="675ef624-5518-3500-da7f-eb6a3992c701">
-          </form>
-        </div>
+          </div>
+
+          <!-- Submit button -->
+          <div class="u-align-right u-form-group u-form-submit u-label-top">
+            <input type="submit" value="submit" class="u-form-control-hidden">
+            <a href="#" class="u-active-palette-3-base u-border-active-palette-3-base u-border-hover-palette-3-base u-border-none u-btn u-btn-submit u-button-style u-hover-palette-3-base u-palette-2-base u-btn-1">Submit your request</a>
+          </div>
+        </form>
+
       </div>
-    </section>
-    <section class="u-clearfix u-valign-top u-section-2" id="sec-f7cb">
-      <div class="u-expanded u-grey-10 u-map">
-        <div class="embed-responsive">
-          <iframe class="embed-responsive-item" src="https://maps.google.com/maps?output=embed&amp;q=Melbourne%20clayton&amp;t=m" data-map="JTdCJTIycG9zaXRpb25UeXBlJTIyJTNBJTIybWFwLWFkZHJlc3MlMjIlMkMlMjJhZGRyZXNzJTIyJTNBJTIyTWVsYm91cm5lJTIwY2xheXRvbiUyMiUyQyUyMnpvb20lMjIlM0FudWxsJTJDJTIydHlwZUlkJTIyJTNBJTIycm9hZCUyMiUyQyUyMmxhbmclMjIlM0FudWxsJTJDJTIyYXBpS2V5JTIyJTNBbnVsbCUyQyUyMm1hcmtlcnMlMjIlM0ElNUIlNUQlN0Q="></iframe>
-        </div>
+    </div>
+  </section>
+
+  <section class="u-clearfix u-valign-top u-section-2" id="sec-f7cb">
+    <div class="u-expanded u-grey-10 u-map">
+      <div class="embed-responsive">
+        <iframe class="embed-responsive-item" src="https://maps.google.com/maps?output=embed&amp;q=Melbourne%20clayton&amp;t=m" data-map="JTdCJTIycG9zaXRpb25UeXBlJTIyJTNBJTIybWFwLWFkZHJlc3MlMjIlMkMlMjJhZGRyZXNzJTIyJTNBJTIyTWVsYm91cm5lJTIwY2xheXRvbiUyMiUyQyUyMnpvb20lMjIlM0FudWxsJTJDJTIydHlwZUlkJTIyJTNBJTIycm9hZCUyMiUyQyUyMmxhbmclMjIlM0FudWxsJTJDJTIyYXBpS2V5JTIyJTNBbnVsbCUyQyUyMm1hcmtlcnMlMjIlM0ElNUIlNUQlN0Q="></iframe>
       </div>
-    </section>
-    <section class="u-align-center u-clearfix u-section-3" id="sec-39cb">
-      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-        <div class="data-layout-selected u-clearfix u-expanded-width u-gutter-40 u-layout-wrap u-layout-wrap-1">
-          <div class="u-layout">
-            <div class="u-layout-row">
-              <div class="u-align-left u-container-align-center-sm u-container-align-center-xs u-container-style u-grey-5 u-layout-cell u-right-cell u-size-26 u-layout-cell-1">
-                <div class="u-container-layout u-container-layout-1">
-                  <h2 class="u-text u-text-1">Property Details</h2>
-                  <p class="u-text u-text-2"> Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                  <a href="https://nicepage.dev" class="u-align-center-sm u-align-center-xs u-border-none u-btn u-button-style u-hover-black u-palette-1-base u-btn-1">read more</a>
-                </div>
+    </div>
+  </section>
+  
+  <section class="u-align-center u-clearfix u-section-3" id="sec-39cb">
+    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+      <div class="data-layout-selected u-clearfix u-expanded-width u-gutter-40 u-layout-wrap u-layout-wrap-1">
+        <div class="u-layout">
+          <div class="u-layout-row">
+            <div class="u-align-left u-container-align-center-sm u-container-align-center-xs u-container-style u-grey-5 u-layout-cell u-right-cell u-size-26 u-layout-cell-1">
+              <div class="u-container-layout u-container-layout-1">
+                <h2 class="u-text u-text-1">Property Details</h2>
+                <p class="u-text u-text-2"> Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <a href="https://nicepage.dev" class="u-align-center-sm u-align-center-xs u-border-none u-btn u-button-style u-hover-black u-palette-1-base u-btn-1">read more</a>
               </div>
-              <div class="u-align-center u-container-style u-layout-cell u-shape-rectangle u-size-34 u-layout-cell-2" data-animation-name="customAnimationIn" data-animation-duration="2000">
-                <div class="u-container-layout u-container-layout-2">
-                  <div class="u-clearfix u-custom-html u-expanded-width u-custom-html-1">
-                    <style></style>
-                    <p>Sample HTML. Lorem ipsum dolor sit amet, consectetur adipiscing elit nullam nunc justo sagittis suscipit ultrices.</p>
-                  </div>
+            </div>
+            <div class="u-align-center u-container-style u-layout-cell u-shape-rectangle u-size-34 u-layout-cell-2" data-animation-name="customAnimationIn" data-animation-duration="2000">
+              <div class="u-container-layout u-container-layout-2">
+                <div class="u-clearfix u-custom-html u-expanded-width u-custom-html-1">
+                  <style></style>
+                  <p>Sample HTML. Lorem ipsum dolor sit amet, consectetur adipiscing elit nullam nunc justo sagittis suscipit ultrices.</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
     
     
     

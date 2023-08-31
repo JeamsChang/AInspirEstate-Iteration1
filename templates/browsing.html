@@ -34,7 +34,7 @@
 <body class="u-body u-xl-mode" data-lang="en">
   <header class="u-clearfix u-header u-header" id="sec-6772">
     <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-      <a href="https://nicepage.com" class="u-image u-logo u-image-1" data-image-width="80" data-image-height="40">
+      <a href="https://nicepage.com" class="u-image u-logo u-image-1" data-image-width="60" data-image-height="30">
         <img src="static/images/default-logo.png" class="u-logo-image u-logo-image-1">
       </a>
       <nav class="u-menu u-menu-one-level u-offcanvas u-menu-1">
@@ -160,39 +160,76 @@
       </div>
     </div>
   </section>
-
-
-  <section class="u-clearfix u-valign-top u-section-2" id="sec-f7cb">
-    
-    <div class="u-expanded u-map">
-      <div class="embed-responsive">
-        <div id="map-container" style="width: 90%; height: 800px; margin: 0 auto;"></div>
-      </div>
-    </div>
-      
-        
-        <!-- <iframe id="map-iframe" src="{{ url_for('static', filename='map.html') }}" width="75%" height="400" frameborder="0"></iframe> -->
-    <!-- </div> -->
-    
-  </section>
   
-  <section class="u-align-center u-clearfix u-section-3" id="sec-39cb">
+  <section class="u-clearfix u-grey-10 u-section-2" id="sec-c763">
     <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-      <div class="data-layout-selected u-clearfix u-expanded-width u-gutter-40 u-layout-wrap u-layout-wrap-1">
+      <div class="data-layout-selected u-clearfix u-expanded-width u-gutter-10 u-layout-wrap u-layout-wrap-1">
         <div class="u-layout">
           <div class="u-layout-row">
-            <div class="u-align-left u-container-align-center-sm u-container-align-center-xs u-container-style u-grey-5 u-layout-cell u-right-cell u-size-26 u-layout-cell-1">
-              <div class="u-container-layout u-container-layout-1">
-                <h2 class="u-text u-text-1">Property Details</h2>
-                <p class="u-text u-text-2"> Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <a href="https://nicepage.dev" class="u-align-center-sm u-align-center-xs u-border-none u-btn u-button-style u-hover-black u-palette-1-base u-btn-1">read more</a>
+            <div class="u-size-30 u-size-60-md">
+              <div class="u-layout-col">
+                <div class="u-container-align-center u-container-style u-layout-cell u-left-cell u-size-60 u-layout-cell-1" src="" data-animation-name="customAnimationIn" data-animation-duration="1000">
+                  <div class="u-container-layout u-valign-middle u-container-layout-1">
+                    <div class="u-expanded u-grey-light-2 u-map">
+                      <div class="embed-responsive">
+                        <div id="map-container" style="width: 100%; height: 100%; margin: 0 auto;"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="u-align-center u-container-style u-layout-cell u-shape-rectangle u-size-34 u-layout-cell-2" data-animation-name="customAnimationIn" data-animation-duration="2000">
-              <div class="u-container-layout u-container-layout-2">
-                <div class="u-clearfix u-custom-html u-expanded-width u-custom-html-1">
-                  <style></style>
-                  <p>Sample HTML. Lorem ipsum dolor sit amet, consectetur adipiscing elit nullam nunc justo sagittis suscipit ultrices.</p>
+            <div class="u-size-30 u-size-60-md">
+              <div class="u-layout-col">
+                <div class="u-size-30">
+                  <div class="u-layout-row">
+                    <div class="u-align-left u-container-style u-layout-cell u-size-60 u-layout-cell-2" data-animation-name="customAnimationIn" data-animation-duration="1000">
+                      <div class="u-container-layout u-container-layout-2">
+                        <h2 class="u-text u-text-1">Property Value Comparison</h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="u-size-30">
+                  <div class="u-layout-row">
+                    <div class="u-align-left u-container-style u-gradient u-layout-cell u-size-60 u-layout-cell-3" data-animation-name="customAnimationIn" data-animation-duration="1000">
+                      <div class="u-container-layout u-container-layout-3">
+                        <div class="u-expanded-width u-table u-table-responsive u-table-1">
+                          <table class="u-table-entity">
+                            <colgroup>
+                              <col width="13.4%">
+                              <col width="42.3%">
+                              <col width="44.3%">
+                            </colgroup>
+                            <thead class="u-table-header">
+                              <tr style="height: 73px;">
+                                <th class="u-border-1 u-border-grey-dark-1 u-table-cell"></th>
+                                <th class="u-align-center u-border-1 u-border-grey-dark-1 u-table-cell u-table-cell-2">Property&nbsp;</th>
+                                <th class="u-align-center u-border-1 u-border-grey-dark-1 u-table-cell u-table-cell-3">Suburb Average</th>
+                              </tr>
+                            </thead>
+                            <tbody class="u-table-body">
+                              <tr style="height: 73px;">
+                                <td class="u-align-center u-border-1 u-border-grey-dark-1 u-table-cell u-table-cell-4">Bedrooms</td>
+                                <td class="u-align-center u-border-1 u-border-grey-dark-1 u-table-cell"></td>
+                                <td class="u-align-center u-border-1 u-border-grey-dark-1 u-table-cell"></td>
+                              </tr>
+                              <tr style="height: 73px;">
+                                <td class="u-align-center u-border-1 u-border-grey-dark-1 u-table-cell u-table-cell-7">Bathrooms</td>
+                                <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
+                                <td class="u-align-center u-border-1 u-border-grey-dark-1 u-table-cell"></td>
+                              </tr>
+                              <tr style="height: 73px;">
+                                <td class="u-align-center u-border-1 u-border-grey-dark-1 u-table-cell u-table-cell-10">Garage</td>
+                                <td class="u-align-center u-border-1 u-border-grey-dark-1 u-table-cell"></td>
+                                <td class="u-align-center u-border-1 u-border-grey-dark-1 u-table-cell"></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

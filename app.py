@@ -2,7 +2,7 @@ import os
 import mysql.connector
 from flask_sqlalchemy import SQLAlchemy
 from flask import (Flask, redirect, render_template, request,
-                   send_from_directory, url_for)
+                   send_from_directory, url_for, jsonify)
 
 app = Flask(__name__)
 
@@ -21,11 +21,14 @@ db = SQLAlchemy(app)
 # SQLAlchemy ORM definition for Melbourne Housing Data
 class MelbourneHousingData(db.Model):
     __tablename__ = "melbourne_housing_data"
-    id = db.Column(db.Integer, primary_key=True)
+    my_row_id = db.Column(db.Integer, primary_key=True)
     suburb = db.Column(db.String)
     rooms = db.Column(db.Integer)
     bathroom = db.Column(db.Integer)
     price = db.Column(db.Double)
+    latitude = db.Column(db.Double)
+    longitude = db.Column(db.Double)
+
 
 @app.route('/', methods=['GET'])
 def index():
@@ -37,22 +40,56 @@ def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
-@app.route('/browsing')
+@app.route('/browsing', methods=['GET'])
 def browsing():
+   print('Request for browsing page received')
+   
    # Get all suburbs from database
-   suburbs = suburbs = db.session.query(MelbourneHousingData.suburb).distinct().order_by(MelbourneHousingData.suburb).all()
-   print(suburbs)
+   suburbs = db.session.query(MelbourneHousingData.suburb).distinct().order_by(MelbourneHousingData.suburb).all()
+   
    # Get max number of rooms from database
    max_rooms = db.session.query(db.func.max(MelbourneHousingData.rooms)).scalar()
-   print(max_rooms)
+   
    # Get max number of bathrooms from database
    max_bathroom = db.session.query(db.func.max(MelbourneHousingData.bathroom)).scalar()
+   
    # Get max price of properties from database
    max_price = db.session.query(db.func.max(MelbourneHousingData.price)).scalar()
+   
    # Get min price of properties from database
    min_price = db.session.query(db.func.min(MelbourneHousingData.price)).scalar()
-   return render_template('browsing.html', suburbs=suburbs, max_rooms=max_rooms, max_price=max_price, max_bathroom=max_bathroom, min_price=min_price)
+   
+   # Get latitude and longitude of properties from the database
+   coordinates = db.session.query(MelbourneHousingData.latitude, MelbourneHousingData.longitude).all()
+   return render_template('browsing.html', 
+                          suburbs=suburbs, 
+                           max_rooms=max_rooms, 
+                           max_price=max_price, 
+                           max_bathroom=max_bathroom, 
+                           min_price=min_price, 
+                           coordinates=coordinates)
 
+@app.route('/browsing_post', methods=['POST'])
+def browsing_post():
+   # accept the request data from the client
+   data = request.json
+   suburb = data['suburb']
+   bedrooms = data['bedrooms']
+   bathrooms = data['bathrooms']
+   maxPrice = data['maxPrice']
+
+   # search the database for properties that match the search criteria
+   properties = db.session.query(MelbourneHousingData).filter(MelbourneHousingData.suburb == suburb, 
+                                                               MelbourneHousingData.rooms == bedrooms, 
+                                                               MelbourneHousingData.bathroom == bathrooms, 
+                                                               MelbourneHousingData.price <= maxPrice).all()
+   
+   # get the coordinates of the properties
+   coordinates = [(property.latitude, property.longitude) for property in properties]
+   
+   print(coordinates)
+   return jsonify(coordinates)
+   
 @app.route('/test')
 def test():
    print('Request for test page received')
@@ -62,7 +99,6 @@ def test():
    results = cursor.fetchall()
    cursor.close()
    conn.close()
-   print(results)
    return render_template('test.html', results=results)
 
 if __name__ == '__main__':

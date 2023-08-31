@@ -195,7 +195,7 @@
                     <div class="u-align-left u-container-style u-gradient u-layout-cell u-size-60 u-layout-cell-3" data-animation-name="customAnimationIn" data-animation-duration="1000">
                       <div class="u-container-layout u-container-layout-3">
                         <div class="u-expanded-width u-table u-table-responsive u-table-1">
-                          <table class="u-table-entity">
+                          <table class="u-table-entity" id="comparison-table">
                             <colgroup>
                               <col width="13.4%">
                               <col width="42.3%">
@@ -209,20 +209,25 @@
                               </tr>
                             </thead>
                             <tbody class="u-table-body">
-                              <tr style="height: 73px;">
+                              <tr style="height: 60px;">
                                 <td class="u-align-center u-border-1 u-border-grey-dark-1 u-table-cell u-table-cell-4">Bedrooms</td>
-                                <td class="u-align-center u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                <td class="u-align-center u-border-1 u-border-grey-dark-1 u-table-cell"></td>
+                                <td class="u-align-center u-border-1 u-border-grey-dark-1 u-table-cell" id="comparison-table-self-bedroom"></td>
+                                <td class="u-align-center u-border-1 u-border-grey-dark-1 u-table-cell" id="comparison-table-avg-bedroom"></td>
                               </tr>
-                              <tr style="height: 73px;">
+                              <tr style="height: 60px;">
                                 <td class="u-align-center u-border-1 u-border-grey-dark-1 u-table-cell u-table-cell-7">Bathrooms</td>
-                                <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                <td class="u-align-center u-border-1 u-border-grey-dark-1 u-table-cell"></td>
+                                <td class="u-align-center u-border-1 u-border-grey-dark-1 u-table-cell" id="comparison-table-self-bathroom"></td>
+                                <td class="u-align-center u-border-1 u-border-grey-dark-1 u-table-cell" id="comparison-table-avg-bathroom"></td>
                               </tr>
-                              <tr style="height: 73px;">
+                              <tr style="height: 60px;">
                                 <td class="u-align-center u-border-1 u-border-grey-dark-1 u-table-cell u-table-cell-10">Garage</td>
-                                <td class="u-align-center u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                <td class="u-align-center u-border-1 u-border-grey-dark-1 u-table-cell"></td>
+                                <td class="u-align-center u-border-1 u-border-grey-dark-1 u-table-cell" id="comparison-table-self-garage"></td>
+                                <td class="u-align-center u-border-1 u-border-grey-dark-1 u-table-cell" id="comparison-table-avg-garage"></td>
+                              </tr>
+                              <tr style="height: 60px;">
+                                <td class="u-align-center u-border-1 u-border-grey-dark-1 u-table-cell u-table-cell-10">Price</td>
+                                <td class="u-align-center u-border-1 u-border-grey-dark-1 u-table-cell" id="comparison-table-self-price"></td>
+                                <td class="u-align-center u-border-1 u-border-grey-dark-1 u-table-cell" id="comparison-table-avg-price"></td>
                               </tr>
                             </tbody>
                           </table>
@@ -273,7 +278,7 @@
     }).addTo(map);
 
     // Function to add property markers to the map
-    function addPropertyMarkers(coordinates) {
+    function addPropertyMarkers(properties_info) {
       // Clear existing markers from the map
       map.eachLayer(layer => {
         if (layer instanceof L.Marker) {
@@ -282,8 +287,53 @@
       });
 
       // Loop through the received coordinates and add markers
-      coordinates.forEach(coordinate => {
+      properties_info.forEach(property => {
+        var coordinate = [property[0], property[1]];
         var marker = L.marker(coordinate).addTo(map);
+        // Get the corresponding row in the table using the property ID
+        var self_bedroom = document.getElementById("comparison-table-self-bedroom");
+        var self_bathroom = document.getElementById("comparison-table-self-bathroom");
+        var self_garage = document.getElementById("comparison-table-self-garage");
+        var self_price = document.getElementById("comparison-table-self-price");
+        
+        self_bedroom.textContent = '';
+        self_bathroom.textContent = '';
+        self_garage.textContent = '';
+        self_price.textContent = '';
+
+        var avg_bedroom = document.getElementById("comparison-table-avg-bedroom");
+        var avg_bathroom = document.getElementById("comparison-table-avg-bathroom");
+        var avg_garage = document.getElementById("comparison-table-avg-garage");
+        var avg_price = document.getElementById("comparison-table-avg-price");
+        
+        avg_bedroom.textContent = '';
+        avg_bathroom.textContent = '';
+        avg_garage.textContent = '';
+        avg_price.textContent = '';
+
+        // Add a click event listener to each marker
+        marker.on('click', async() => {
+          self_bedroom.textContent = property[2];
+          self_bathroom.textContent = property[3];
+          self_garage.textContent = property[4];
+          self_price.textContent = property[5];
+          var selectedSuburb = document.getElementById("select-f4db").value;
+          let res = await fetch("{{ url_for('avg') }}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                suburb: selectedSuburb
+            })
+          })
+          let avg_info = await res.json();
+          avg_bedroom.textContent = avg_info[0];
+          avg_bathroom.textContent = avg_info[1];
+          avg_garage.textContent = avg_info[2];
+          avg_price.textContent = avg_info[3];
+          
+        });
       });
     }
 
@@ -310,11 +360,11 @@
         })
       })
 
-      let coordinates = await res.json();
-      console.log(coordinates);
+      let properties_info = await res.json();
+      console.log(properties_info);
 
       // Call the function to add property markers to the map
-      addPropertyMarkers(coordinates);
+      addPropertyMarkers(properties_info);
     });
   </script>
 

@@ -28,6 +28,7 @@ class MelbourneHousingData(db.Model):
     price = db.Column(db.Double)
     latitude = db.Column(db.Double)
     longitude = db.Column(db.Double)
+    car = db.Column(db.Integer)
 
 
 @app.route('/', methods=['GET'])
@@ -85,20 +86,21 @@ def browsing_post():
                                                                MelbourneHousingData.price <= maxPrice).all()
    
    # get the coordinates of the properties
-   coordinates = [(property.latitude, property.longitude) for property in properties]
+   properties_info = [(property.latitude, property.longitude, property.rooms, property.bathroom, property.car, property.price) for property in properties]
 
-   return jsonify(coordinates)
+   return jsonify(properties_info)
    
-@app.route('/test')
-def test():
-   print('Request for test page received')
-   conn = mysql.connector.connect(**DATABASE_CONFIG)
-   cursor = conn.cursor()
-   cursor.execute("SELECT * FROM melbourne_housing_data")
-   results = cursor.fetchall()
-   cursor.close()
-   conn.close()
-   return render_template('test.html', results=results)
+@app.route('/avg', methods=['POST'])
+def avg():
+   data = request.json
+   suburb = data['suburb']
+   avg_bedrooms = db.session.query(db.func.avg(MelbourneHousingData.rooms)).filter(MelbourneHousingData.suburb == suburb).scalar()
+   avg_bathrooms = db.session.query(db.func.avg(MelbourneHousingData.bathroom)).filter(MelbourneHousingData.suburb == suburb).scalar()
+   avg_price = db.session.query(db.func.avg(MelbourneHousingData.price)).filter(MelbourneHousingData.suburb == suburb).scalar()
+   avg_car = db.session.query(db.func.avg(MelbourneHousingData.car)).filter(MelbourneHousingData.suburb == suburb).scalar()
+   return jsonify(
+      [round(avg_bedrooms), round(avg_bathrooms), round(avg_car), round(avg_price, 2)]
+      )
 
 if __name__ == '__main__':
    app.run(debug=True)

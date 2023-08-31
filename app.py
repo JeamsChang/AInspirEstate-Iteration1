@@ -86,8 +86,7 @@ def browsing_post():
    
    # get the coordinates of the properties
    coordinates = [(property.latitude, property.longitude) for property in properties]
-   
-   print(coordinates)
+
    return jsonify(coordinates)
    
 @app.route('/test')

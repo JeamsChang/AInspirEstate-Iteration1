@@ -2,9 +2,22 @@ import os
 import mysql.connector
 from flask_sqlalchemy import SQLAlchemy
 from flask import (Flask, redirect, render_template, request,
-                   send_from_directory, url_for, jsonify)
+                   send_from_directory, url_for, jsonify,
+                   Response)
 
 app = Flask(__name__)
+
+# Set password
+PASSWORD = "seamTA07"
+
+@app.before_request
+def require_basic_auth():
+    auth = request.authorization
+    if not auth or auth.password != PASSWORD:
+        return Response(
+            "Unauthorized", 401,
+            {'WWW-Authenticate': 'Basic realm="Login Required"'}
+        )
 
 # Azure Database for MySQL connection string
 DATABASE_CONFIG = {

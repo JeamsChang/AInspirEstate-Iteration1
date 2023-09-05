@@ -115,5 +115,10 @@ def avg():
       [round(avg_bedrooms), round(avg_bathrooms), round(avg_car), round(avg_price, 2)]
       )
 
+@app.route('/prediction', methods=['GET'])
+def prediction():
+    print('Request for prediction page received')
+    return render_template('prediction.html')
+
 if __name__ == '__main__':
    app.run(debug=True)

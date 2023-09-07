@@ -21555,35 +21555,6 @@ a.pswp__share--download:hover {
 .u-price-wrapper .u-hide-price + div {
   margin-left: 0;
 }
-.u-product-second-image {
-  display: none;
-}
-.u-product-second-image-wrapper {
-  position: relative;
-}
-.u-product-second-image-wrapper .u-image {
-  transition: all 0.7s ease;
-}
-.u-product-second-image-wrapper .u-image + .u-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  transition: all 0.7s ease;
-}
-.u-product-second-image-wrapper > img + img,
-.u-product-second-image-wrapper > div + div {
-  opacity: 0;
-}
-.u-product-second-image-wrapper:hover > img + img,
-.u-product-second-image-wrapper:hover > div + div {
-  opacity: 1;
-}
-.u-product-second-image-wrapper:hover > img:first-child:not(:only-child),
-.u-product-second-image-wrapper:hover > div:first-child:not(:only-child) {
-  opacity: 0;
-}
 .u-product-quantity {
   display: table;
 }
@@ -41650,9 +41621,9 @@ a.u-link.u-text-hover-grey-90:hover {
 }
 
 .u-header .u-image-1 {
-  width: 64px;
-  height: 32px;
-  margin: 9px auto 0 0;
+  width: 50px;
+  height: 25px;
+  margin: 3px auto -22px 0;
 }
 
 .u-header .u-logo-image-1 {
@@ -41661,7 +41632,7 @@ a.u-link.u-text-hover-grey-90:hover {
 }
 
 .u-header .u-menu-1 {
-  margin: -35px 0 4px auto;
+  margin: -20px 0 4px auto;
 }
 
 .u-header .u-nav-1 {
@@ -41677,7 +41648,7 @@ a.u-link.u-text-hover-grey-90:hover {
 @media (max-width: 1199px) {
   .u-header .u-menu-1 {
     width: auto;
-    margin-top: -35px;
+    margin-top: -20px;
   }
 }
 
